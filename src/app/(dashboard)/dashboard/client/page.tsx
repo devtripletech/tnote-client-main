@@ -1,0 +1,53 @@
+import { Metadata } from "next"
+import { DataTable } from "./components/data-table"
+import { columns } from "./components/columns"
+import { Shell } from "@/components/shells/shell"
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header"
+import { getClientsAction } from "@/actions/client"
+import { Suspense } from "react"
+import getCurrentUser from "@/actions/getCurrentUser"
+import { UserPayload } from "@/lib/validations/auth"
+import { notFound, redirect } from "next/navigation"
+import { checkPermissionForSales } from "@/lib/utils"
+import { ButtonAction } from "./components/button-action"
+
+export const metadata: Metadata = {
+  title: "Clientes",
+  description: "",
+}
+
+export default async function ClientsPage() {
+  const user = (await getCurrentUser()) as UserPayload
+
+  if (!user) {
+    redirect("/")
+  }
+
+  if (checkPermissionForSales(user?.role)) {
+    return notFound()
+  }
+
+  const clients = await getClientsAction()
+
+  return (
+    <Shell variant="sidebar">
+      <div className="flex justify-between w-full items-center">
+        <div className="flex gap-2 flex-col">
+          <PageHeaderHeading>Clientes</PageHeaderHeading>
+          <PageHeaderDescription>Gerencie seus clientes</PageHeaderDescription>
+        </div>
+        <ButtonAction />
+      </div>
+
+      <Suspense fallback={"carregand..."}>
+        <div className="relative w-full overflow-auto">
+          <DataTable data={clients} columns={columns} />
+        </div>
+      </Suspense>
+    </Shell>
+  )
+}
