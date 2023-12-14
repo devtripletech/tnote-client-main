@@ -378,7 +378,7 @@ export function AddAttendanceForm({
 
           <FormField
             control={form.control}
-            name="cursos"
+            name="curso"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Cursos</FormLabel>

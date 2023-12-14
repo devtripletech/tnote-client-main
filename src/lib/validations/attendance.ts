@@ -20,11 +20,15 @@ export const addAttendanceSchema = z.object({
   KM: z.coerce.number().optional(),
   Refeicao: z.coerce.number().optional(),
   Estacionamento: z.coerce.number().optional(),
+  curso: z.coerce.number().optional(),
+  conducoes: z.coerce.number().optional(),
+  alimentacaocliente: z.coerce.number().optional(),
   Outros: z.coerce.number().optional(),
   Ticket: z.string().optional(),
   Descricao: z.string().optional(),
   Dia: z.string().optional(),
   ID_lancamento_sharepoint: z.string().optional(),
+
   hoursSelectStart: z.string().min(1, {
     message: "Obrigatório.",
   }),
