@@ -11,11 +11,6 @@ const AuthPage = () => {
     <Shell className="max-w-lg">
       <AuthForm />
       <Toaster />
-      <Script
-        src="https://www.googletagmanager.com/gtag/js"
-        strategy="afterInteractive"
-        nonce={nonce}
-      />
     </Shell>
   )
 }
