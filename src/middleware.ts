@@ -5,16 +5,8 @@ export async function middleware(req: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64")
   const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-hashes' 'unsafe-inline' 'sha256-joC7reiv/dIkR+09K78mednkCl5Rmm2WBT7APoyLY+g=' 'sha256-9HyNyG0GZyabMBeQyib5LJELLQE2s41lRmpcThEwjzI=' 'nonce-${nonce}' 'strict-dynamic';
-  style-src 'self' 'nonce-${nonce}';
-  img-src 'self' blob: data:;
-  font-src 'self';
-  object-src 'none';
-  base-uri 'self';
-  form-action 'self';
-  frame-ancestors 'none';
-  block-all-mixed-content;
-  upgrade-insecure-requests;
+  script-src 'self' 'unsafe-hashes' 'unsafe-inline' 'sha256-joC7reiv/dIkR+09K78mednkCl5Rmm2WBT7APoyLY+g=' 'sha256-9HyNyG0GZyabMBeQyib5LJELLQE2s41lRmpcThEwjzI=' 'sha256-${nonce}' 'strict-dynamic';
+
 `
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, " ")
