@@ -1,4 +1,3 @@
-"use server"
 
 import { redirect } from "next/navigation"
 
@@ -34,7 +33,7 @@ import { redirect } from "next/navigation"
 
 export const verifyEmailAction = async ({ email }: { email: string }) => {
   try {
-    console.log("recover password")
+    console.log("recover password " + email)
 
     const res = await fetch(
       `http://apptnote.eastus.cloudapp.azure.com:3000/recoverpassword`,
@@ -48,7 +47,7 @@ export const verifyEmailAction = async ({ email }: { email: string }) => {
       },
     )
 
-
+      console.log(res)
     
     if (res.status === 401 || res.status === 400) redirect("/")
 

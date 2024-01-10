@@ -1,3 +1,4 @@
+"use client"
 
 import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -61,6 +62,8 @@ export function ResetPasswordForm() {
   */
 
   async function onSubmit(data : Inputs){
+
+    console.log(data)
     
     try{
       const res = await verifyEmailAction(data)
@@ -70,6 +73,7 @@ export function ResetPasswordForm() {
     }catch(error){
       catchError("não foi possível enviar email")
     }
+    
    
 
 
