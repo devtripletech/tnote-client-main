@@ -39,7 +39,7 @@ export const verifyEmailAction = async ({ email }: { email: string }) => {
     const res = await fetch(
       `http://apptnote.eastus.cloudapp.azure.com:3000/recoverpassword`,
       {
-        cache: 'no-store' ,
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
