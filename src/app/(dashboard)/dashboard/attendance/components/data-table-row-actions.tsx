@@ -20,6 +20,7 @@ import {
 import { catchError } from "@/lib/utils";
 import { Toaster, toast } from "sonner";
 import { duplicateAttendanceAction } from "@/actions/attendance";
+import { revalidatePath } from "../../../../../../node_modules/next/cache";
 
 interface DataTableRowActionsProps<TData> {
   attendanceId: number;
@@ -35,12 +36,13 @@ export function DataTableRowActions<TData>({
   }
   async function duplicateHandler() {
     try {
-      // const res = await duplicateAttendanceAction(attendanceId)
-      // if (res.error) {
-      //   toast.error(res.error)
-      // } else {
-      //   toast.success("Lançamento adicionado com sucesso!")
-      // }
+      const res = await duplicateAttendanceAction(attendanceId)
+      if (res.error) {
+         toast.error(res.error)
+      } else {
+        toast.success("Lançamento adicionado com sucesso!")
+
+      }
     } catch (error) {
       catchError(error);
     }

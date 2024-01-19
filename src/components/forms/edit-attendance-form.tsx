@@ -432,8 +432,8 @@ export function EditAttendanceForm({
               aria-hidden="true"
             />
           )}
-          Enviar
-          <span className="sr-only">Enviar</span>
+          Atualizar
+          <span className="sr-only">Atualizar</span>
         </Button>
       </form>
       <Toaster />
