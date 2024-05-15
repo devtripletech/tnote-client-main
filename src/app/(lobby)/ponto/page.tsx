@@ -65,7 +65,7 @@ export default async function PontoPage() {
         )}
 
       <RegisterButton email={user?.email} />
-      <Button className="bg-white w-5/6 mt-2 text-primary border-2 border-primary hover:text-white mb-4">
+      <Button className="bg-white w-5/6 mt-2 text-primary border-2 border-primary mb-4 hover:bg-primary/10">
         Meus Pontos
       </Button>
     </div>

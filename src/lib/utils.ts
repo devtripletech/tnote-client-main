@@ -85,10 +85,15 @@ export function formatNumber(
   }).format(Number(number))
 }
 export function formatTime(date: Date | string | number) {
+  const dataNoFusoHorarioBR = new Date(date)
+  dataNoFusoHorarioBR.setHours(dataNoFusoHorarioBR.getHours() + 3)
+  const opcoesFormato = { timeZone: "America/Sao_Paulo" }
+
   return new Intl.DateTimeFormat("pt-BR", {
     hour: "numeric",
     minute: "numeric",
-  }).format(new Date(date))
+    timeZone: "America/Sao_Paulo",
+  }).format(new Date(dataNoFusoHorarioBR))
 }
 
 export function formatDate(date: Date | string | number) {
