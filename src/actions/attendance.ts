@@ -6,15 +6,14 @@ import { z } from "zod"
 import getCurrentUser from "./getCurrentUser"
 import { catchError } from "@/lib/utils"
 import { revalidatePath } from "next/cache"
-
-const url = "http://apptnote.eastus.cloudapp.azure.com:3000/"
+import { env } from "@/env.mjs"
 
 export const getAttendanceAction = async (): Promise<Attendance[]> => {
   const user = await getCurrentUser()
   return getToken().then(async (token) => {
     try {
       const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/horasprojetoindex/${user?.email}`,
+        `${env.API_URL}/horasprojetoindex/${user?.email}`,
         {
           method: "GET",
           headers: {
@@ -34,7 +33,7 @@ export const getAttendanceByIdAction = async (
   attendanceId: number
 ): Promise<Attendance | undefined | null> => {
   try {
-    const res = await fetch(`${url}horasprojeto/${attendanceId}`, {
+    const res = await fetch(`${env.API_URL}/horasprojeto/${attendanceId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await getToken()}`,
@@ -55,7 +54,7 @@ export const addAttendanceAction = async (
   const input = extendedAttendanceSchema.parse(rawInput)
   return getToken().then(async (token) => {
     const res = await fetch(
-      `http://apptnote.eastus.cloudapp.azure.com:3000/horasprojeto`,
+      `${env.API_URL}/horasprojeto`,
 
       {
         method: "POST",
@@ -79,8 +78,7 @@ export const addAttendanceAction = async (
           iD_lancamento_sharepoint: 0,
           curso: input.curso,
           conducoes: input.conducoes,
-          alimentacaocliente: input.alimentacaocliente
-
+          alimentacaocliente: input.alimentacaocliente,
         }),
       }
     )
@@ -99,7 +97,7 @@ export async function editAttendanceAction(
   const input = extendedAttendanceSchema.parse(rawInput)
 
   const res = await fetch(
-    `http://apptnote.eastus.cloudapp.azure.com:3000/horasprojeto/${input.ID_lancamento}`,
+    `${env.API_URL}/horasprojeto/${input.ID_lancamento}`,
     {
       method: "PUT",
       headers: {
@@ -132,16 +130,13 @@ export async function editAttendanceAction(
 export async function duplicateAttendanceAction(id: number) {
   return getToken().then(async (token) => {
     console.log(token)
-    const res = await fetch(
-      `http://apptnote.eastus.cloudapp.azure.com:3000/horasprojetodup/${id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    const res = await fetch(`${env.API_URL}/horasprojetodup/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     if (res.status === 401 || res.status === 400) redirect("/")
     revalidatePath("/dashboard/attendance")
     return await res.json()

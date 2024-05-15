@@ -84,6 +84,12 @@ export function formatNumber(
     maximumFractionDigits: decimals,
   }).format(Number(number))
 }
+export function formatTime(date: Date | string | number) {
+  return new Intl.DateTimeFormat("pt-BR", {
+    hour: "numeric",
+    minute: "numeric",
+  }).format(new Date(date))
+}
 
 export function formatDate(date: Date | string | number) {
   return new Intl.DateTimeFormat("pt-BR", {

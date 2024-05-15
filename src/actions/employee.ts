@@ -12,20 +12,18 @@ import {
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
+import { env } from "@/env.mjs"
 
 export const getEmployeesAction = async (): Promise<Employee[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/funcionario`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/funcionario`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -36,16 +34,13 @@ export const getEmployeesAction = async (): Promise<Employee[]> => {
 export const listEmployeesReportAction = async (): Promise<Employee[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/funcionario`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/funcionario`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -58,16 +53,13 @@ export const getEmployeePositionAction = async (): Promise<
 > => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/cargo`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/cargo`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -78,16 +70,13 @@ export const getEmployeePositionAction = async (): Promise<
 export const getEmployeeHoursAction = async (): Promise<EmployeeHours[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/horario`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/horario`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -98,16 +87,13 @@ export const getEmployeeHoursAction = async (): Promise<EmployeeHours[]> => {
 export const getEmployeeCityAction = async (): Promise<EmployeeCity[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/cidade`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/cidade`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -120,16 +106,13 @@ export const getEmployeeByIdAction = async (
 ): Promise<Employee | undefined | null> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/funcionario/${employeeId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/funcionario/${employeeId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()
@@ -143,7 +126,7 @@ export async function editEmployeeAction(
   return getToken().then(async (token) => {
     try {
       const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/funcionario/${input.ID_funcionario}`,
+        `${env.API_URL}/funcionario/${input.ID_funcionario}`,
         {
           method: "PUT",
           headers: {
@@ -169,17 +152,14 @@ export const addEmployeeAction = async (
   input: z.infer<typeof employeeSchema>
 ) => {
   return getToken().then(async (token) => {
-    const res = await fetch(
-      `http://apptnote.eastus.cloudapp.azure.com:3000/funcionario`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(input),
-      }
-    )
+    const res = await fetch(`${env.API_URL}/funcionario`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(input),
+    })
     if (res.status === 401 || res.status === 400) redirect("/")
 
     const data = await res.json()
@@ -195,16 +175,13 @@ export const addEmployeeAction = async (
 export const getManagerAction = async (): Promise<TechnicalManager[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/projetosgerente`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/projetosgerente`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       return await res.json()

@@ -6,20 +6,18 @@ import { Project, projectSchema } from "@/lib/validations/project"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
+import { env } from "@/env.mjs"
 
 export const getProjectsAction = async (): Promise<Project[]> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/projetos`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/projetos`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       const data = await res.json()
@@ -36,16 +34,13 @@ export const getProjectByIdAction = async (
 ): Promise<Project | undefined | null> => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/projetos/${projectId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const res = await fetch(`${env.API_URL}/projetos/${projectId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
       const data = await res.json()
 
@@ -59,17 +54,14 @@ export const getProjectByIdAction = async (
 export async function editProjectAction(input: z.infer<typeof projectSchema>) {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/projetos/${input.ID_projeto}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(input),
-        }
-      )
+      const res = await fetch(`${env.API_URL}/projetos/${input.ID_projeto}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       const data = await res.json()
@@ -87,17 +79,14 @@ export const addProjectAction = async (
 ) => {
   return getToken().then(async (token) => {
     try {
-      const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/projetos`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(input),
-        }
-      )
+      const res = await fetch(`${env.API_URL}/projetos`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      })
       if (res.status === 401 || res.status === 400) redirect("/")
 
       const data = await res.json()

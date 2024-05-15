@@ -16,6 +16,7 @@ import { notFound, redirect } from "next/navigation"
 import { DefaultSession } from "next-auth"
 import { UserPayload } from "@/lib/validations/auth"
 import { checkPermissionForEmployee } from "@/lib/utils"
+import { getEmployeeByIdAction } from "@/actions/employee"
 
 export const metadata: Metadata = {
   title: "Lançamentos",
@@ -27,6 +28,12 @@ export default async function AttendancePage() {
 
   if (!user) {
     redirect("/")
+  }
+
+  const employee = await getEmployeeByIdAction(user.email)
+
+  if (!employee?.flexivel) {
+    redirect("/ponto")
   }
 
   if (checkPermissionForEmployee(user?.role)) {

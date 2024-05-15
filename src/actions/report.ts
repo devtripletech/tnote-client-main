@@ -9,6 +9,7 @@ import {
 } from "@/lib/validations/employee"
 import { redirect } from "next/navigation"
 import { z } from "zod"
+import { env } from "@/env.mjs"
 
 export const listEmployeeReportAction = async (
   employeeId: string
@@ -16,7 +17,7 @@ export const listEmployeeReportAction = async (
   return getToken().then(async (token) => {
     try {
       const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/extratofuncionario/${employeeId}`,
+        `${env.API_URL}/extratofuncionario/${employeeId}`,
         {
           method: "GET",
           headers: {
@@ -38,7 +39,7 @@ export const listProjectExpenseReportAction = async (
   return getToken().then(async (token) => {
     try {
       const res = await fetch(
-        `http://apptnote.eastus.cloudapp.azure.com:3000/lancamentobusca?id_funcionario=${
+        `${env.API_URL}/lancamentobusca?id_funcionario=${
           input.userId
         }&datainicio=${formatToSting(
           input.date_start_end.from

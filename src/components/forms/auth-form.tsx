@@ -46,12 +46,6 @@ export function AuthForm() {
   const callbackUrl = searchParams && searchParams.get("callbackUrl")
   const [isLoading, setIsLoading] = useState(false)
 
-  // useEffect(() => {
-  //   if (session?.status === "authenticated") {
-  //     router.push("/dashboard/attendance")
-  //   }
-  // }, [session?.status, router])
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true)
 
@@ -63,9 +57,7 @@ export function AuthForm() {
         if (callback?.error) {
           toast.error("Invalid credentials!")
         } else {
-          router.push(
-            decodeURIComponent(callbackUrl ?? "/dashboard/attendance")
-          )
+          router.push(decodeURIComponent(callbackUrl ?? "/ponto"))
         }
       })
       .finally(() => setIsLoading(false))

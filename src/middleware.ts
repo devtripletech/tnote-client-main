@@ -23,6 +23,7 @@ export async function middleware(req: NextRequest) {
     "/dashboard/employee",
     "/dashboard/attendance",
     "/dashboard/attendance/new",
+    "/ponto",
   ]
   const isPathProtected = protectedPaths?.some((path) => pathname == path)
   const res = NextResponse.next({
