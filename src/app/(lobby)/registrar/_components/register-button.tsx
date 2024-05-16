@@ -24,7 +24,7 @@ export function RegisterButton({ email }: RegisterButtonProps) {
         toast.success(data?.mensagem)
       }
 
-      router.push("/registrar")
+      //router.push("/registrar")
       setLoading(false)
     } catch (error) {
       setLoading(false)

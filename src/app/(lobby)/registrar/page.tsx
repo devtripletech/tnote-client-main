@@ -46,13 +46,11 @@ export default async function RegistrarPage() {
         <LogOutButton />
       </div>
       <div className="flex-1 max-w-4xl px-5  md:w-full  container">
-        <div className="bg-primary dark:bg-background w-full rounded-md  p-1 mt-2 mb-4">
-          <div className="bg-white dark:bg-muted p-">
-            <p className="text-center text-foreground">Último ponto</p>
-            <p className="text-center font-bold text-foreground">
-              {pontos && pontos.length > 0 && formatDateK(pontos[0]?.dia)}
-            </p>
-          </div>
+        <div className="bg-white dark:bg-background w-full rounded-md border border-solid  p-1 mt-2 mb-4">
+          <p className="text-center text-foreground">Último ponto</p>
+          <p className="text-center font-bold text-foreground">
+            {pontos && pontos.length > 0 && formatDateK(pontos[0]?.dia)}
+          </p>
         </div>
 
         {pontos &&
@@ -62,9 +60,9 @@ export default async function RegistrarPage() {
               (ponto.Entrada || ponto.Saida) && (
                 <div
                   key={i}
-                  className="bg-background w-full p-4 mt-2 rounded-md"
+                  className="bg-background w-full p-4 mt-2 rounded-md border-solid border"
                 >
-                  <div className="flex justify-between">
+                  <div className="flex justify-between ">
                     <div className="w-1/2 p-2 border-r border-primary dark:border-foreground">
                       <p className="text-center">Entrada</p>
                       <p className="text-center font-bold">

@@ -27,7 +27,7 @@ export default async function PontoPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start bg-[#F2F2F2] min-h-screen">
+    <div className="flex flex-col items-center justify-start bg-muted min-h-screen">
       <div className="bg-primary dark:bg-background  w-full p-4  flex justify-between">
         <GoBackButton />
 
@@ -35,7 +35,7 @@ export default async function PontoPage() {
 
         <Button variant="outline">Reembolso</Button>
       </div>
-      <div className="flex items-center justify-between max-w-4xl px-5 w-full mb-4">
+      <div className="flex items-center justify-between max-w-4xl px-5 w-full my-2">
         <Input className="flex-1" placeholder="Itens de busca" />
         <div className="flex flex-col justify-center items-center mx-2 gap-2">
           <span className="text-xs text-muted-foreground">reembolso</span>
