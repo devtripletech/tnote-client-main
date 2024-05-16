@@ -204,3 +204,24 @@ export function checkPermissionForSales(role: number) {
   }
   return false
 }
+
+export function getWeekday(date: Date | string | number) {
+  const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+    weekday: "long",
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date))
+
+  return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1)
+}
+
+export function getDate(date: Date | string | number) {
+  const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date))
+
+  return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1)
+}

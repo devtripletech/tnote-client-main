@@ -33,7 +33,7 @@ export default async function AttendancePage() {
   const employee = await getEmployeeByIdAction(user.email)
 
   if (!employee?.flexivel) {
-    redirect("/ponto")
+    redirect("/registrar")
   }
 
   if (checkPermissionForEmployee(user?.role)) {

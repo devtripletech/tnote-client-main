@@ -29,7 +29,7 @@ export function MainNav({ items }: MainNavProps) {
         href="/"
         className="hidden items-center space-x-2 lg:flex"
       >
-        <Icons.logo className="h-6 w-6" aria-hidden="true" />
+        <Icons.logo className="h-6 w-6  dark:text-white" aria-hidden="true" />
         <span className="hidden font-bold lg:inline-block">
           {siteConfig.name}
         </span>

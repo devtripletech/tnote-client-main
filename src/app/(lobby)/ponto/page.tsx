@@ -1,14 +1,18 @@
-import { getEmployeeByIdAction } from "@/actions/employee"
-import getCurrentUser from "@/actions/getCurrentUser"
-import { getPontosAction, registerPontoAction } from "@/actions/ponto"
 import { Button } from "@/components/ui/button"
-import { formatDate, formatTime } from "@/lib/utils"
+import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { ArrowLeft, ArrowRight } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import getCurrentUser from "@/actions/getCurrentUser"
 import { UserPayload } from "@/lib/validations/auth"
 import { redirect } from "next/navigation"
-import { LogOutButtons } from "./_components/logout-button"
-import { RegisterButton } from "./_components/register-button"
+import { getEmployeeByIdAction } from "@/actions/employee"
+import { SiteFooter } from "@/components/layouts/site-footer"
+import { GoBackButton } from "./_components/go-back-button"
+import { getWeekday } from "@/lib/utils"
+import { PontoDetails } from "./_components/ponto-details"
 
-interface EmployeeResponse {}
 export default async function PontoPage() {
   const user = (await getCurrentUser()) as UserPayload
 
@@ -21,53 +25,35 @@ export default async function PontoPage() {
   if (employee?.flexivel) {
     redirect("/dashboard/attendance")
   }
-  const pontos = await getPontosAction(user.email)
 
   return (
-    <div className="flex flex-col items-center justify-start bg-[#F2F2F2] h-full">
-      <div className="bg-primary w-full p-4 text-white flex justify-between">
-        <div className="w-4"></div>
-        <h1 className="text-xl font-bold text-center">Meu Ponto</h1>
+    <div className="flex flex-col items-center justify-start bg-[#F2F2F2] min-h-screen">
+      <div className="bg-primary dark:bg-background  w-full p-4  flex justify-between">
+        <GoBackButton />
 
-        <LogOutButtons />
+        <h1 className="text-xl font-bold text-center text-white">Meu Ponto</h1>
+
+        <Button variant="outline">Reembolso</Button>
       </div>
-      <div className="bg-primary w-full p-4 mt-2">
-        <div className="bg-white p-2">
-          <p className="text-center">Último ponto</p>
-          <p className="text-center font-bold">
-            {pontos.length > 0 && formatDate(pontos[0]?.dia)}
-          </p>
+      <div className="flex items-center justify-between max-w-4xl px-5 w-full mb-4">
+        <Input className="flex-1" placeholder="Itens de busca" />
+        <div className="flex flex-col justify-center items-center mx-2 gap-2">
+          <span className="text-xs text-muted-foreground">reembolso</span>
+          <Switch className="ml-2" id="search-toggle" />
         </div>
       </div>
+      <ScrollArea className="flex-1 max-w-4xl px-5 w-full mb-4">
+        <div className="flex flex-col gap-4">
+          <PontoDetails date="2024-05-15T09:51:00.000Z" />
 
-      {pontos &&
-        pontos.length > 0 &&
-        pontos.map(
-          (ponto, i) =>
-            (ponto.Entrada || ponto.Saida) && (
-              <div key={i} className="bg-white w-full p-4 mt-2">
-                <div className="flex justify-between">
-                  <div className="w-1/2 p-2 border-r border-primary">
-                    <p className="text-center">Entrada</p>
-                    <p className="text-center font-bold">
-                      {ponto.Entrada ? formatTime(ponto.Entrada) : "--:--"}
-                    </p>
-                  </div>
-                  <div className="w-1/2 p-2">
-                    <p className="text-center">Saída</p>
-                    <p className="text-center font-bold">
-                      {ponto.Saida ? formatTime(ponto.Saida) : "--:--"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )
-        )}
+          <PontoDetails date="2024-05-14T09:51:00.000Z" />
 
-      <RegisterButton email={user?.email} />
-      <Button className="bg-white w-5/6 mt-2 text-primary border-2 border-primary mb-4 hover:bg-primary/10">
-        Meus Pontos
-      </Button>
+          <PontoDetails date="2024-05-13T09:51:00.000Z" />
+
+          <PontoDetails date="2024-05-10T09:51:00.000Z" />
+        </div>
+      </ScrollArea>
+      <SiteFooter />
     </div>
   )
 }

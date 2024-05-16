@@ -57,7 +57,7 @@ export function AuthForm() {
         if (callback?.error) {
           toast.error("Invalid credentials!")
         } else {
-          router.push(decodeURIComponent(callbackUrl ?? "/ponto"))
+          router.push(decodeURIComponent(callbackUrl ?? "/registrar"))
         }
       })
       .finally(() => setIsLoading(false))
@@ -92,7 +92,7 @@ export function AuthForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="joh@gmail.com" {...field} />
+                      <Input placeholder="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

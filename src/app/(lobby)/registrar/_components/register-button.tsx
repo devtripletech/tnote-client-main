@@ -35,7 +35,7 @@ export function RegisterButton({ email }: RegisterButtonProps) {
   return (
     <Button
       onClick={handleButtonRegister}
-      className="bg-primary w-5/6 mt-4 text-white"
+      className="bg-primary px-4 w-full mt-4 text-white dark:bg-background dark:hover:dark:bg-background/80"
       disabled={loading}
     >
       {loading && (
