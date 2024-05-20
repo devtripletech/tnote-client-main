@@ -8,13 +8,13 @@ export async function middleware(req: NextRequest) {
     //default-src 'self';
     // script-src 'self' 'nonce-${nonce}';
     // style-src 'self' 'nonce-${nonce}';
-    img-src 'self' data:;
-    connect-src 'self';
-    font-src 'self';
-    object-src 'none';
-    frame-ancestors 'none';
-    base-uri 'self';
-    form-action 'self';
+    // img-src 'self' data:;
+    // connect-src 'self';
+    // font-src 'self';
+    // object-src 'none';
+    // frame-ancestors 'none';
+    // base-uri 'self';
+    // form-action 'self';
   `
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, " ")

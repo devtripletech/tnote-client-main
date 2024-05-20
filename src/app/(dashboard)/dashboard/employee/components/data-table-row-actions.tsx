@@ -41,7 +41,7 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={updateHandler}>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={updateHandler}>Editar</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

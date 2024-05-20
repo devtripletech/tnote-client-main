@@ -30,7 +30,7 @@ export const columns: ColumnDef<Attendance>[] = [
         <div>
           <Badge
             variant={bg}
-            className={cn("text-zinc-900", {
+            className={cn("text-muted-foreground", {
               "text-white": dayOfWeek === 0 || dayOfWeek === 6,
             })}
           >

@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
-import { redirect, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { Row } from "@tanstack/react-table"
+import { redirect, useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,35 +16,34 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { catchError } from "@/lib/utils";
-import { Toaster, toast } from "sonner";
-import { duplicateAttendanceAction } from "@/actions/attendance";
-import { revalidatePath } from "../../../../../../node_modules/next/cache";
+} from "@/components/ui/dropdown-menu"
+import { catchError } from "@/lib/utils"
+import { Toaster, toast } from "sonner"
+import { duplicateAttendanceAction } from "@/actions/attendance"
+import { revalidatePath } from "../../../../../../node_modules/next/cache"
 
 interface DataTableRowActionsProps<TData> {
-  attendanceId: number;
+  attendanceId: number
 }
 
 export function DataTableRowActions<TData>({
   attendanceId,
 }: DataTableRowActionsProps<TData>) {
-  const router = useRouter();
+  const router = useRouter()
 
   function updateHandler() {
-    router.push(`/dashboard/attendance/edit/${attendanceId}`);
+    router.push(`/dashboard/attendance/edit/${attendanceId}`)
   }
   async function duplicateHandler() {
     try {
       const res = await duplicateAttendanceAction(attendanceId)
       if (res.error) {
-         toast.error(res.error)
+        toast.error(res.error)
       } else {
         toast.success("Lançamento adicionado com sucesso!")
-
       }
     } catch (error) {
-      catchError(error);
+      catchError(error)
     }
   }
 
@@ -60,9 +59,9 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={updateHandler}>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={updateHandler}>Editar</DropdownMenuItem>
         <DropdownMenuItem onClick={duplicateHandler}>Duplicar</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }
