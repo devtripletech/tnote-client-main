@@ -4,8 +4,6 @@ import { env } from "@/env.mjs"
 
 export const verifyEmailAction = async ({ email }: { email: string }) => {
   try {
-    console.log("recover password " + email)
-
     const res = await fetch(`${env.API_URL}/recoverpassword`, {
       method: "POST",
       headers: {
@@ -14,12 +12,9 @@ export const verifyEmailAction = async ({ email }: { email: string }) => {
       body: JSON.stringify({ email: email }),
     })
 
-    console.log(res)
-
     if (res.status === 401 || res.status === 400) redirect("/")
 
     const data = await res.json()
-    console.log(data)
 
     if (data?.error) throw new Error(data?.error)
 

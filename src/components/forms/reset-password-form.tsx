@@ -44,39 +44,14 @@ export function ResetPasswordForm() {
   const [isPending, startTransition] = React.useTransition()
   const [isLoading, setIsLoading] = useState(false)
 
-  /*
- async function onSubmit(data: Inputs) {
-    startTransition(async () => {
-      try {
-        const res = await verifyEmailAction(data)
-        console.log(res)
-        toast.success(res?.status)
-        //form.reset()
-        // router.push("/dashboard/client")
-      } catch (err) {
-        catchError("não foi possível enviar email")
-      }
-    })
-    // router.push("/reset-password/step2")
-  }
-  */
-
-  async function onSubmit(data : Inputs){
-
-    console.log(data)
-    
-    try{
+  async function onSubmit(data: Inputs) {
+    try {
       const res = await verifyEmailAction(data)
 
       toast.success(res?.status)
-
-    }catch(error){
+    } catch (error) {
       catchError("não foi possível enviar email")
     }
-    
-   
-
-
   }
 
   // react-hook-form

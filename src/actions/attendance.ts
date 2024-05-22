@@ -129,7 +129,6 @@ export async function editAttendanceAction(
 
 export async function duplicateAttendanceAction(id: number) {
   return getToken().then(async (token) => {
-    console.log(token)
     const res = await fetch(`${env.API_URL}/horasprojetodup/${id}`, {
       method: "POST",
       headers: {

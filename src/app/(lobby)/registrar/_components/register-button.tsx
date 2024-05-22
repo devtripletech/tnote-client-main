@@ -17,7 +17,7 @@ export function RegisterButton({ email }: RegisterButtonProps) {
     setLoading(true)
     try {
       const data = await registerPontoAction(email)
-      console.log(data)
+
       if (data && data?.error) {
         toast.error(data.error)
       } else {
@@ -35,7 +35,7 @@ export function RegisterButton({ email }: RegisterButtonProps) {
   return (
     <Button
       onClick={handleButtonRegister}
-      className="bg-primary px-4 w-full mt-4 text-white dark:bg-background dark:hover:dark:bg-background/80"
+      className="bg-primary dark:bg-background px-4 w-full mt-4 text-white dark:hover:dark:bg-background/80"
       disabled={loading}
     >
       {loading && (

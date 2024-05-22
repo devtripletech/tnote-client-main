@@ -9,7 +9,7 @@ export function GoBackButton() {
     <Button
       variant="ghost"
       className="text-white"
-      onClick={() => router.push("/registrar")}
+      onClick={() => router.back()}
     >
       <ArrowLeft />
     </Button>

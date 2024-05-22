@@ -1,6 +1,6 @@
 import { getEmployeeByIdAction } from "@/actions/employee"
 import getCurrentUser from "@/actions/getCurrentUser"
-import { getPontosAction, registerPontoAction } from "@/actions/ponto"
+import { getPontoListAction, registerPontoAction } from "@/actions/ponto"
 import { Button } from "@/components/ui/button"
 import { formatDate, formatDateK, formatTime } from "@/lib/utils"
 import { UserPayload } from "@/lib/validations/auth"
@@ -26,7 +26,7 @@ export default async function RegistrarPage() {
   if (employee?.flexivel) {
     redirect("/dashboard/attendance")
   }
-  const pontos = await getPontosAction(user.email)
+  const pontos = await getPontoListAction(user.email)
 
   return (
     <div className="flex flex-col items-center justify-start bg-muted min-h-screen">

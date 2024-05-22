@@ -15,6 +15,7 @@ import {
   PageHeaderHeading,
 } from "@/components/page-header"
 import { Shell } from "@/components/shells/shell"
+
 import getCurrentUser from "@/actions/getCurrentUser"
 
 import { Project } from "@/lib/validations/project"
@@ -37,7 +38,6 @@ interface AttendanceEditPageProps {
     attendanceId: string | number
   }
 }
-
 export default async function AttendanceEditPage({
   params,
 }: AttendanceEditPageProps) {
@@ -58,7 +58,6 @@ export default async function AttendanceEditPage({
 
   try {
     attendance = await getAttendanceByIdAction(Number(attendanceId))
-    console.log(attendance)
   } catch (error) {
     console.log(error)
   }

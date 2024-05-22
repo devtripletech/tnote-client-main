@@ -12,6 +12,8 @@ import { SiteFooter } from "@/components/layouts/site-footer"
 import { GoBackButton } from "./_components/go-back-button"
 import { getWeekday } from "@/lib/utils"
 import { PontoDetails } from "./_components/ponto-details"
+import { ReembolsoResponse, getReembolsoList } from "@/actions/ponto"
+import { RegistrarPontoButton } from "./_components/registrar-ponot-button"
 
 export default async function PontoPage() {
   const user = (await getCurrentUser()) as UserPayload
@@ -26,6 +28,8 @@ export default async function PontoPage() {
     redirect("/dashboard/attendance")
   }
 
+  const reembolsos = await getReembolsoList(user.email)
+
   return (
     <div className="flex flex-col items-center justify-start bg-muted min-h-screen">
       <div className="bg-primary dark:bg-background  w-full p-4  flex justify-between">
@@ -33,7 +37,7 @@ export default async function PontoPage() {
 
         <h1 className="text-xl font-bold text-center text-white">Meu Ponto</h1>
 
-        <Button variant="outline">Reembolso</Button>
+        <RegistrarPontoButton />
       </div>
       <div className="flex items-center justify-between max-w-4xl px-5 w-full my-2">
         <Input className="flex-1" placeholder="Itens de busca" />
@@ -44,13 +48,11 @@ export default async function PontoPage() {
       </div>
       <ScrollArea className="flex-1 max-w-4xl px-5 w-full mb-4">
         <div className="flex flex-col gap-4">
-          <PontoDetails date="2024-05-15T09:51:00.000Z" />
-
-          <PontoDetails date="2024-05-14T09:51:00.000Z" />
-
-          <PontoDetails date="2024-05-13T09:51:00.000Z" />
-
-          <PontoDetails date="2024-05-10T09:51:00.000Z" />
+          {reembolsos &&
+            reembolsos.length > 0 &&
+            reembolsos.map((ponto, i: number) => (
+              <PontoDetails key={i} ponto={ponto} />
+            ))}
         </div>
       </ScrollArea>
       <SiteFooter />
