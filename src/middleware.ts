@@ -2,41 +2,21 @@ import { getToken } from "next-auth/jwt"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function middleware(req: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64")
+  //   const nonce = crypto.randomUUID()
 
-  const cspHeader = `
-    //default-src 'self';
-    // script-src 'self' 'nonce-${nonce}';
-    // style-src 'self' 'nonce-${nonce}';
-    // img-src 'self' data:;
-    // connect-src 'self';
-    // font-src 'self';
-    // object-src 'none';
-    // frame-ancestors 'none';
-    // base-uri 'self';
-    // form-action 'self';
-  `
-  const contentSecurityPolicyHeaderValue = cspHeader
-    .replace(/\s{2,}/g, " ")
-    .trim()
-
-  const requestHeaders = new Headers(req.headers)
-  requestHeaders.set("x-nonce", nonce)
-  requestHeaders.set(
-    "Content-Security-Policy",
-    contentSecurityPolicyHeaderValue
-  )
-  // const cspHeader = ``
-  // const contentSecurityPolicyHeaderValue = cspHeader
-  //   .replace(/\s{2,}/g, " ")
-  //   .trim()
-
-  // const requestHeaders = new Headers(req.headers)
-  // requestHeaders.set("x-nonce", nonce)
-  // requestHeaders.set(
-  //   "Content-Security-Policy",
-  //   contentSecurityPolicyHeaderValue
-  // )
+  //    // Configura o header CSP
+  //    const cspHeader = `
+  //    default-src 'self';
+  //    script-src 'self' 'nonce-${nonce}';
+  //    style-src 'self' 'nonce-${nonce}';
+  //    img-src 'self' data:;
+  //    connect-src 'self';
+  //    font-src 'self';
+  //    object-src 'none';
+  //    frame-ancestors 'none';
+  //    base-uri 'self';
+  //    form-action 'self';
+  //  `.replace(/\s{2,}/g, " ").trim();
 
   const pathname = req.nextUrl.pathname
   const protectedPaths = [
@@ -48,12 +28,10 @@ export async function middleware(req: NextRequest) {
     "/ponto",
   ]
   const isPathProtected = protectedPaths?.some((path) => pathname === path)
-  const res = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  })
-  res.headers.set("Content-Security-Policy", contentSecurityPolicyHeaderValue)
+  const res = NextResponse.next()
+  // res.headers.set("Content-Security-Policy", cspHeader);
+  // res.headers.set("x-nonce", nonce);
+
   if (isPathProtected) {
     const token = await getToken({ req })
 
@@ -62,10 +40,6 @@ export async function middleware(req: NextRequest) {
       url.searchParams.set("callbackUrl", pathname)
       return NextResponse.redirect(url)
     }
-
-    // if (pathname === "/") {
-    //   return NextResponse.redirect(new URL("/examples", req.url))
-    // }
   }
   return res
 }

@@ -57,7 +57,7 @@ export function AuthForm() {
         if (callback?.error) {
           toast.error("Invalid credentials!")
         } else {
-          router.push(decodeURIComponent(callbackUrl ?? "/registrar"))
+          router.push(decodeURIComponent(callbackUrl ?? "/dashboard/attendance"))
         }
       })
       .finally(() => setIsLoading(false))
